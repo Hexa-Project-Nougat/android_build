@@ -1,4 +1,6 @@
-
+#UBER TC
+ROM_TOOLCHAIN_USED := $(TARGET_GCC_VERSION_EXP)
+KERNEL_TOOLCHAIN := $(KERNEL_TOOLCHAIN)
 # List of variables we want to print in the build banner.
 print_build_config_vars := \
   PLATFORM_VERSION_CODENAME \
@@ -14,6 +16,8 @@ print_build_config_vars := \
   TARGET_2ND_ARCH \
   TARGET_2ND_ARCH_VARIANT \
   TARGET_2ND_CPU_VARIANT \
+  ROM_TOOLCHAIN_USED \
+  KERNEL_TOOLCHAIN \
   HOST_ARCH \
   HOST_2ND_ARCH \
   HOST_OS \
