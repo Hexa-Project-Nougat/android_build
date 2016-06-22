@@ -14,6 +14,12 @@ else
 POLLY_OPTIMIZATION=true
 endif #POLLY_OPTIMIZATION
 
+ifdef    ENABLE_SANITIZE
+ENABLE_SANITIZE := $(ENABLE_SANITIZE)
+else
+ENABLE_SANITIZE=true
+endif #ENABLE_SANITIZE
+
 # List of variables we want to print in the build banner.
 print_build_config_vars := \
   PLATFORM_VERSION_CODENAME \
@@ -33,6 +39,7 @@ print_build_config_vars := \
   KERNEL_TOOLCHAIN \
   CORTEX_TUNINGS \
   POLLY_OPTIMIZATION \
+  ENABLE_SANITIZE \
   HOST_ARCH \
   HOST_2ND_ARCH \
   HOST_OS \
