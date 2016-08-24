@@ -1867,8 +1867,14 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE)
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-.PHONY: otapackage
+HEXA_TARGET_ROM := $(PRODUCT_OUT)/hexa-$(CM_VERSION).zip
+
+.PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
+bacon: otapackage
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(HEXA_TARGET_ROM)
+	$(hide) $(MD5SUM) $(HEXA_TARGET_ROM) > $(HEXA_TARGET_ROM).md5sum
+	@echo -e ${CL_CYN}"Package Complete: $(HEXA_TARGET_ROM)"${CL_RST}
 
 endif    # build_ota_package
 
