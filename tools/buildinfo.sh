@@ -62,4 +62,6 @@ if [ -n "$BUILD_THUMBPRINT" ] ; then
 fi
 echo "ro.build.characteristics=$TARGET_AAPT_CHARACTERISTICS"
 
+echo "ro.hexa.device=$HEXA_DEVICE_CODE"
+
 echo "# end build properties"
