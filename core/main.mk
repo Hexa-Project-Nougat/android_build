@@ -1070,7 +1070,7 @@ ifneq ($(filter userdebug,$(TARGET_BUILD_VARIANT)),)
 droidcore : target-tests host-tests
 endif
 endif
-
+endif
 .PHONY: lintall
 
 ifneq (,$(filter samplecode, $(MAKECMDGOALS)))
