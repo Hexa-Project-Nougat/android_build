@@ -64,6 +64,7 @@ if [ "$TARGET_UNIFIED_DEVICE" == "" ] ; then
   fi
 fi
 echo "ro.build.characteristics=$TARGET_AAPT_CHARACTERISTICS"
+echo "ro.opa.eligible_device=true"
 
 echo "ro.cm.device=$CM_DEVICE"
 
