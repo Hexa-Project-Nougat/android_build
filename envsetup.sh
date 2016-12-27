@@ -625,7 +625,7 @@ function lunch()
         # if we can't find a product, try to grab it off the CM github
         T=$(gettop)
         pushd $T > /dev/null
-        vendor/hexa/build/tools/roomservice.py $product
+        vendor/hexa/build/tools/roomservice.py $product true
         popd > /dev/null
         check_product $product
     else
@@ -1728,4 +1728,4 @@ check_bash_version && {
 
 export ANDROID_BUILD_TOP=$(gettop)
 
-. vendor/hexa/build/envsetup.sh
+. $ANDROID_BUILD_TOP/vendor/hexa/build/envsetup.sh
