@@ -125,7 +125,9 @@ DISABLE_POLLY_arm :=  \
 	libwebp-encode \
 	libwebrtc% \
 	libyuv_static \
-	libntfs-3g_static
+	libntfs-3g_static \
+	libbnnmlowpV8 \
+	libbnnmlowpV8_static
 
 DISABLE_POLLY_arm64 := \
 	$(DISABLE_POLLY_arm) \
