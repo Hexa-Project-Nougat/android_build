@@ -128,7 +128,9 @@ DISABLE_POLLY_arm :=  \
 	libntfs-3g_static \
 	libbnnmlowpV8 \
 	libbnnmlowpV8_static \
-	libRSSupport
+	libRSSupport \
+	libF77blasV8 \
+	libF77blasV8_static
 
 DISABLE_POLLY_arm64 := \
 	$(DISABLE_POLLY_arm) \
