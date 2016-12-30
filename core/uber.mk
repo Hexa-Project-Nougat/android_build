@@ -130,7 +130,9 @@ DISABLE_POLLY_arm :=  \
 	libbnnmlowpV8_static \
 	libRSSupport \
 	libF77blasV8 \
-	libF77blasV8_static
+	libF77blasV8_static \
+	libsvoxpico_static \
+	libsvoxpico
 
 DISABLE_POLLY_arm64 := \
 	$(DISABLE_POLLY_arm) \
