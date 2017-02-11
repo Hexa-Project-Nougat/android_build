@@ -71,14 +71,14 @@ endef
 
 $(combo_2nd_arch_prefix)TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
 
-$(combo_2nd_arch_prefix)TARGET_arm_CFLAGS :=    -O3 \
+$(combo_2nd_arch_prefix)TARGET_arm_CFLAGS :=    -O2 \
                         -fomit-frame-pointer \
                         -fstrict-aliasing    \
                         -funswitch-loops
 
 # Modules can choose to compile some source as thumb.
 $(combo_2nd_arch_prefix)TARGET_thumb_CFLAGS :=  -mthumb \
-                        -O3 \
+                        -Os \
                         -fomit-frame-pointer \
                         -fno-strict-aliasing
 
@@ -97,7 +97,7 @@ ifeq ($(FORCE_ARM_DEBUGGING),true)
 endif
 
 $(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += \
-			-mfloat-abi=softfp\
+			-msoft-float \
 			-ffunction-sections \
 			-fdata-sections \
 			-funwind-tables \
@@ -110,21 +110,14 @@ $(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += \
 			-fno-canonical-system-headers \
 			$(arch_variant_cflags) \
 
-# More flags/options can be added here
-$(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += \
-			-DNDEBUG \
-			-Wstrict-aliasing=2 \
-			-fgcse-after-reload \
-			-frerun-cse-after-loop \
-			-frename-registers
-
-# arter97
-$(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += \
-			-w \
-			-O3 \
-			-fno-inline-functions \
-			-funroll-loops \
-			-mvectorize-with-neon-quad
+# The "-Wunused-but-set-variable" option often breaks projects that enable
+# "-Wall -Werror" due to a commom idiom "ALOGV(mesg)" where ALOGV is turned
+# into no-op in some builds while mesg is defined earlier. So we explicitly
+# disable "-Wunused-but-set-variable" here.
+ifneq ($(filter 4.6 4.6.% 4.7 4.7.% 4.8 4.9, $($(combo_2nd_arch_prefix)TARGET_GCC_VERSION)),)
+$(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += -fno-builtin-sin \
+			-fno-strict-volatile-bitfields
+endif
 
 # This is to avoid the dreaded warning compiler message:
 #   note: the mangling of 'va_list' has changed in GCC 4.4
@@ -151,6 +144,15 @@ $(combo_2nd_arch_prefix)TARGET_GLOBAL_LDFLAGS += \
 $(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += -mthumb-interwork
 
 $(combo_2nd_arch_prefix)TARGET_GLOBAL_CPPFLAGS += -fvisibility-inlines-hidden
+
+# More flags/options can be added here
+$(combo_2nd_arch_prefix)TARGET_RELEASE_CFLAGS := \
+			-DNDEBUG \
+			-g \
+			-Wstrict-aliasing=2 \
+			-fgcse-after-reload \
+			-frerun-cse-after-loop \
+			-frename-registers
 
 libc_root := bionic/libc
 libm_root := bionic/libm
