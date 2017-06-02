@@ -97,11 +97,12 @@ ifeq ($(FORCE_ARM_DEBUGGING),true)
 endif
 
 $(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += \
-			-msoft-float \
+			-mfloat-abi=softfp \
 			-ffunction-sections \
 			-fdata-sections \
 			-funwind-tables \
 			-fstack-protector-strong \
+			-Wno-unused -Wno-unused-parameter -Wno-error=unused -Wno-error=unused-parameter \
 			-Wa,--noexecstack \
 			-Werror=format-security \
 			-D_FORTIFY_SOURCE=2 \
@@ -148,11 +149,50 @@ $(combo_2nd_arch_prefix)TARGET_GLOBAL_CPPFLAGS += -fvisibility-inlines-hidden
 # More flags/options can be added here
 $(combo_2nd_arch_prefix)TARGET_RELEASE_CFLAGS := \
 			-DNDEBUG \
-			-g \
 			-Wstrict-aliasing=2 \
 			-fgcse-after-reload \
 			-frerun-cse-after-loop \
 			-frename-registers
+			
+LOCAL_DISABLE_GRAPHITE := \
+	libunwind \
+	libFFTEm \
+	libicui18n \
+	libskia \
+	libvpx \
+	libmedia_jni \
+	libstagefright_mp3dec \
+	libart \
+	libstagefright_amrwbenc \
+	libpdfium \
+	libpdfiumcore \
+	libwebviewchromium \
+	libwebviewchromium_loader \
+	libwebviewchromium_plat_support \
+	libjni_filtershow_filters \
+	fio \
+	libwebrtc_spl \
+	libpcap \
+    libFraunhoferAAC \
+ 	libhwui
+
+ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE), $(LOCAL_MODULE))))
+$(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += \
+	$(GRAPHITE_FLAGS)
+else
+$(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS := \
+	$(GRAPHITE_FLAGS)
+endif
+
+GRAPHITE_FLAGS := \
+	-fgraphite \
+	-fgraphite-identity \
+	-floop-flatten \
+	-floop-parallelize-all \
+	-ftree-loop-linear \
+	-floop-interchange \
+	-floop-strip-mine \
+	-floop-block
 
 libc_root := bionic/libc
 libm_root := bionic/libm
