@@ -18,7 +18,7 @@
 # Included by combo/select.mk
 
 ifeq ($(strip $(HOST_TOOLCHAIN_PREFIX)),)
-HOST_TOOLCHAIN_PREFIX := /usr/lib/distcc/x86_64-linux-
+HOST_TOOLCHAIN_PREFIX := prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/bin/x86_64-linux-
 endif
 HOST_CC  := $(HOST_TOOLCHAIN_PREFIX)gcc
 HOST_CXX := $(HOST_TOOLCHAIN_PREFIX)g++
